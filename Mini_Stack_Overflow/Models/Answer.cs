@@ -7,8 +7,6 @@ namespace Mini_Stack_Overflow.Models
     {
         public int AnswerId { get; set; }
         public string Text { get; set; }
-        
-        [ForeignKey("UserId")]
         public Guid UserId { get; set; }
         public string Email { get; set; }
         public bool CountUpvotes { get; set; }
@@ -16,6 +14,7 @@ namespace Mini_Stack_Overflow.Models
         public DateTime CreateAt { get; set; } = DateTime.Now;
         public int QuestionId { get; set; }
         public virtual Question Question { get; set; }
+        public virtual ICollection<Vote> Votes { get; } = new List<Vote>();
 
     }
 }

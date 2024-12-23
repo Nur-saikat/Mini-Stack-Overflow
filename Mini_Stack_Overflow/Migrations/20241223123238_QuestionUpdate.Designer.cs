@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mini_Stack_Overflow.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using Mini_Stack_Overflow.Areas.Identity.Data;
 namespace Mini_Stack_Overflow.Migrations
 {
     [DbContext(typeof(Mini_Stack_OverflowContext))]
-    partial class Mini_Stack_OverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20241223123238_QuestionUpdate")]
+    partial class QuestionUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -288,18 +291,21 @@ namespace Mini_Stack_Overflow.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tags")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("QuestionId");
@@ -318,9 +324,6 @@ namespace Mini_Stack_Overflow.Migrations
                     b.Property<int>("AnswerCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("AnswerId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
@@ -334,17 +337,7 @@ namespace Mini_Stack_Overflow.Migrations
                     b.Property<int>("QuestionCount")
                         .HasColumnType("int");
 
-                    b.Property<int?>("QuestionId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("VoteId");
-
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("QuestionId");
 
                     b.ToTable("Votes");
                 });
@@ -411,27 +404,9 @@ namespace Mini_Stack_Overflow.Migrations
                     b.Navigation("Question");
                 });
 
-            modelBuilder.Entity("Mini_Stack_Overflow.Models.Vote", b =>
-                {
-                    b.HasOne("Mini_Stack_Overflow.Models.Answer", null)
-                        .WithMany("Votes")
-                        .HasForeignKey("AnswerId");
-
-                    b.HasOne("Mini_Stack_Overflow.Models.Question", null)
-                        .WithMany("Votes")
-                        .HasForeignKey("QuestionId");
-                });
-
-            modelBuilder.Entity("Mini_Stack_Overflow.Models.Answer", b =>
-                {
-                    b.Navigation("Votes");
-                });
-
             modelBuilder.Entity("Mini_Stack_Overflow.Models.Question", b =>
                 {
                     b.Navigation("Answer");
-
-                    b.Navigation("Votes");
                 });
 #pragma warning restore 612, 618
         }

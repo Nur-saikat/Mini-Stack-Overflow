@@ -22,7 +22,7 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Special title treatment</h5>
+                <h5 class="card-title">Questions</h5>
                 <p>Total Questions :@ViewData["Questions"] </p>
                 <p>Total Questions Up Vote :@ViewData["TotalQuestionsUp"]</p>
                 <p>Total Questions Down Vote :@ViewData["TotalQuestionsDown"]</p>
@@ -32,15 +32,17 @@
     </div>
 </div>
 
-<div style="display:flex">
-    <div >
-       
-    </div>
-  
-    <div style="margin-left:20px">
-       
 
+<div class="col-sm-6">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Questions</h5>
+            <p>Total : @ViewData["Questions"] </p>
+            <p>Total Vote :@ViewData["TotalQuestionsUp"]</p>
+            <p>Total Vote: @ViewData["TotaVote"]</p>
+            <a href="~/Questions/Create" class="btn btn-primary">Go Questions</a>
+        </div>
     </div>
-
+</div>
 </div>
 

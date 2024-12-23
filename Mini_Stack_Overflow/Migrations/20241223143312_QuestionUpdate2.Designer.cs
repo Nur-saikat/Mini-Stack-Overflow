@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Mini_Stack_Overflow.Areas.Identity.Data;
 
@@ -11,9 +12,11 @@ using Mini_Stack_Overflow.Areas.Identity.Data;
 namespace Mini_Stack_Overflow.Migrations
 {
     [DbContext(typeof(Mini_Stack_OverflowContext))]
-    partial class Mini_Stack_OverflowContextModelSnapshot : ModelSnapshot
+    [Migration("20241223143312_QuestionUpdate2")]
+    partial class QuestionUpdate2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,7 +302,7 @@ namespace Mini_Stack_Overflow.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("QuestionId");

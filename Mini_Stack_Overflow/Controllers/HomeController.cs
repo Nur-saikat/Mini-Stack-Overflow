@@ -40,6 +40,12 @@ namespace Mini_Stack_Overflow.Controllers
             ViewData["TotalQuestionsUp"] = totalQuestionsCountUpvotes;
             var totalQuestionsCountDownvotes = await _context.Question.CountAsync(v => v.CountDownvotes);
             ViewData["TotalQuestionsDown"] = totalQuestionsCountDownvotes;
+            var total = await _context.Votes.CountAsync();
+            ViewData["Questions"] = total;
+            var totalvotes = await _context.Votes.CountAsync(v => v.IsUpvote);
+            ViewData["TotaVote"] = totalvotes;
+
+
             return View();
         }
 
