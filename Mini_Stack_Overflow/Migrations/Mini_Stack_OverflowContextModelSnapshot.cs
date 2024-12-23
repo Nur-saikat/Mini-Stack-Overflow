@@ -316,6 +316,35 @@ namespace Mini_Stack_Overflow.Migrations
                     b.ToTable("Question");
                 });
 
+            modelBuilder.Entity("Mini_Stack_Overflow.Models.Vote", b =>
+                {
+                    b.Property<int>("VoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoteId"));
+
+                    b.Property<int>("AnswerCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUpvote")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("VoteId");
+
+                    b.ToTable("Votes");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)

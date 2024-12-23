@@ -5,14 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Question</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<h1>Total Up Vote :@ViewData["TotalQuestionsUp"]</h1>
-<h1>Total Down Vote :@ViewData["TotalQuestionsDown"]</h1>
-<h1>Total Questions :@ViewData["Questions"] </h1>
+<div class="col-sm-6">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Questions</h5>
+            <hr />
+            <p>Total Questions :@ViewData["Questions"] </p>
+            <p>Total Questions Up Vote :@ViewData["TotalQuestionsUp"]</p>
+            <p>Total Questions Down Vote :@ViewData["TotalQuestionsDown"]</p>
+            <a href="~/Questions/Create" class="btn btn-primary">Go Questions</a>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>

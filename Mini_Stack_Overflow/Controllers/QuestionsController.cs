@@ -65,7 +65,7 @@ namespace Mini_Stack_Overflow.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Question question)
+        public async Task<IActionResult> Create(Question question , Vote vote)
         {
             // Retrieve the ID of the currently logged-in user
             var useremail = _userManager.GetUserName(User);
@@ -75,7 +75,22 @@ namespace Mini_Stack_Overflow.Controllers
             {
                 question.Email = useremail;
                 question.UserId = user_id;
-                
+                if (question.CountUpvotes)
+                {
+                    vote.IsUpvote = true;
+                }
+                else
+                {
+                    if (question.CountDownvotes)
+                    {
+                        vote.IsUpvote = true;
+                    }
+                    else
+                    {
+                        vote.IsUpvote = false;
+                    }
+                }
+                _context.Add(vote);
                 _context.Questions.Add(question);
                 await _context.SaveChangesAsync();
 

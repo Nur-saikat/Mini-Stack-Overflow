@@ -12,7 +12,7 @@ public class Mini_Stack_OverflowContext : IdentityDbContext<ApplicationUser>
         : base(options)
     {
     }
-    //public virtual DbSet<Vote>Votes { get; set; }
+    public virtual DbSet<Vote>Votes { get; set; }
     public virtual DbSet<Answer>Answers { get; set; }
     public virtual DbSet<Question>Questions { get; set; }
 

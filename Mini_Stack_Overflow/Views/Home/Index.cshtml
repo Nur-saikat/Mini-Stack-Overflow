@@ -6,17 +6,39 @@
     <h1 class="display-4">Welcome</h1>
     <h1>User Email: @ViewData["UserName"]</h1>
 </div>
+
+<div class="row">
+    <div class="col-sm-6 mb-3 mb-sm-0">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Anaswers</h5>
+                <p>Total Anaswers :@ViewData["Anaswers"]</p>
+                <p>Total Anaswers Up Vote :@ViewData["TotaAnaswerslUp"]</p>
+                <p>Total Anaswers Down Vote :@ViewData["TotalAnaswersDown"]</p>
+                <a href="~/Answers/Create" class="btn btn-primary">Anaswers</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p>Total Questions :@ViewData["Questions"] </p>
+                <p>Total Questions Up Vote :@ViewData["TotalQuestionsUp"]</p>
+                <p>Total Questions Down Vote :@ViewData["TotalQuestionsDown"]</p>
+                <a href="~/Questions/Create" class="btn btn-primary">Go Questions</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div style="display:flex">
     <div >
-        <h1>Total Anaswers :@ViewData["Anaswers"]</h1>
-        <h1>Total Anaswers Up Vote :@ViewData["TotaAnaswerslUp"]</h1>
-        <h1>Total Anaswers Down Vote :@ViewData["TotalAnaswersDown"]</h1>
+       
     </div>
   
     <div style="margin-left:20px">
-        <h1>Total Questions :@ViewData["Questions"] </h1>
-        <h1>Total Questions Up Vote :@ViewData["TotalQuestionsUp"]</h1>
-        <h1>Total Questions Down Vote :@ViewData["TotalQuestionsDown"]</h1>
+       
 
     </div>
 

@@ -4,15 +4,17 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<h1>Total Up Vote :@ViewData["TotaAnaswerslUp"]</h1>
-<h1>Total Down Vote :@ViewData["TotalAnaswersDown"]</h1>
-<h1>Total Anaswers :@ViewData["Anaswers"]</h1>
+<div class="col-sm-6 mb-3 mb-sm-0">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Anaswers</h5>
+            <p>Total Anaswers :@ViewData["Anaswers"]</p>
+            <p>Total Anaswers Up Vote :@ViewData["TotaAnaswerslUp"]</p>
+            <p>Total Anaswers Down Vote :@ViewData["TotalAnaswersDown"]</p>
+            <a href="~/Answers/Create" class="btn btn-primary">Anaswers</a>
+        </div>
+    </div>
+</div>
 <table class="table">
     <thead>
         <tr>

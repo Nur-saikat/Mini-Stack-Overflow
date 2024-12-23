@@ -12,7 +12,7 @@ using Mini_Stack_Overflow.Areas.Identity.Data;
 namespace Mini_Stack_Overflow.Migrations
 {
     [DbContext(typeof(Mini_Stack_OverflowContext))]
-    [Migration("20241222093752_InitialCreate")]
+    [Migration("20241223112834_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -235,6 +235,44 @@ namespace Mini_Stack_Overflow.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("Mini_Stack_Overflow.Models.Answer", b =>
+                {
+                    b.Property<int>("AnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AnswerId"));
+
+                    b.Property<bool>("CountDownvotes")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("CountUpvotes")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("AnswerId");
+
+                    b.HasIndex("QuestionId");
+
+                    b.ToTable("Answers");
+                });
+
             modelBuilder.Entity("Mini_Stack_Overflow.Models.Question", b =>
                 {
                     b.Property<int>("QuestionId")
@@ -246,10 +284,10 @@ namespace Mini_Stack_Overflow.Migrations
                     b.Property<string>("ApplicationUsersId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool?>("CountDownvotes")
+                    b.Property<bool>("CountDownvotes")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("CountUpvotes")
+                    b.Property<bool>("CountUpvotes")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreateAt")
@@ -279,6 +317,35 @@ namespace Mini_Stack_Overflow.Migrations
                     b.HasIndex("ApplicationUsersId");
 
                     b.ToTable("Question");
+                });
+
+            modelBuilder.Entity("Mini_Stack_Overflow.Models.Vote", b =>
+                {
+                    b.Property<int>("VoteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VoteId"));
+
+                    b.Property<int>("AnswerCount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsUpvote")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("QuestionCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("VoteId");
+
+                    b.ToTable("Votes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -332,6 +399,17 @@ namespace Mini_Stack_Overflow.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Mini_Stack_Overflow.Models.Answer", b =>
+                {
+                    b.HasOne("Mini_Stack_Overflow.Models.Question", "Question")
+                        .WithMany("Answer")
+                        .HasForeignKey("QuestionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Question");
+                });
+
             modelBuilder.Entity("Mini_Stack_Overflow.Models.Question", b =>
                 {
                     b.HasOne("Mini_Stack_Overflow.Areas.Identity.Data.ApplicationUser", "ApplicationUsers")
@@ -339,6 +417,11 @@ namespace Mini_Stack_Overflow.Migrations
                         .HasForeignKey("ApplicationUsersId");
 
                     b.Navigation("ApplicationUsers");
+                });
+
+            modelBuilder.Entity("Mini_Stack_Overflow.Models.Question", b =>
+                {
+                    b.Navigation("Answer");
                 });
 #pragma warning restore 612, 618
         }
