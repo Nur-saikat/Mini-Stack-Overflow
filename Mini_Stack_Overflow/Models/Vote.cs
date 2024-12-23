@@ -6,6 +6,7 @@ namespace Mini_Stack_Overflow.Models
     {
         public int VoteId { get; set; }
         public bool IsUpvote { get; set; }
+        public Guid UserId { get; set; }
         public string Email { get; set; }
         public int AnswerCount { get; set; }
         public int QuestionCount {  get; set; }

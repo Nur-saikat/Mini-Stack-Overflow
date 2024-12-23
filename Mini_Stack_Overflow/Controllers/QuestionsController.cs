@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -65,41 +65,57 @@ namespace Mini_Stack_Overflow.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Question question , Vote vote)
+        public async Task<IActionResult> Create([Bind("QuestionId,Title,Description,Tags,UserId,Email,CountUpvotes,CountDownvotes,CreateAt")] Question question,Vote vote)
         {
-            // Retrieve the ID of the currently logged-in user
-            var useremail = _userManager.GetUserName(User);
-            var useid = _userManager.GetUserId(User);
-
-            if (Guid.TryParse(useid, out Guid user_id))
+            try
             {
-                question.Email = useremail;
-                question.UserId = user_id;
-                if (question.CountUpvotes)
+
+                var useremail = _userManager.GetUserName(User);
+                var useid = _userManager.GetUserId(User);
+                if (Guid.TryParse(useid, out Guid user_id))
                 {
-                    vote.IsUpvote = true;
-                }
-                else
-                {
-                    if (question.CountDownvotes)
+                    
+                        question.Email = useremail;
+                        question.UserId = user_id;
+                        vote.Email = useremail;
+                       
+                    _context.Add(question);
+                    vote.Email = useremail;
+                    vote.QuestionCount = 1;
+                    if (vote.Email!= useremail) 
+                    {
+                        ViewData["Message"] = "You can't vote for your own question";
+                    }
+                    else { 
+                        ViewBag.Message = "You can vote for this question";
+                    }
+                    if (question.CountUpvotes)
                     {
                         vote.IsUpvote = true;
                     }
                     else
                     {
-                        vote.IsUpvote = false;
+                        if (question.CountDownvotes)
+                        {
+                            vote.IsUpvote = true;
+                        }
+                        else
+                        {
+                            vote.IsUpvote = false;
+                        }
                     }
+                    _context.Add(vote);
+                        await _context.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    
                 }
-                _context.Add(vote);
-                _context.Questions.Add(question);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                return View(question);
             }
+            catch (Exception)
+            {
 
-            // Prepare SelectList for dropdown menu in case of validation failure
-            ViewData["QuestionId"] = new SelectList(_context.Questions, "QuestionId", "Description");
-            return View(question);
+                throw;
+            }
         }
 
         // GET: Questions/Edit/5
@@ -123,7 +139,7 @@ namespace Mini_Stack_Overflow.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("QuestionId,Title,Description,Tags,Email,countUpvotes,countDownvotes,CreateAt")] Question question)
+        public async Task<IActionResult> Edit(int id, [Bind("QuestionId,Title,Description,Tags,UserId,Email,CountUpvotes,CountDownvotes,CreateAt")] Question question)
         {
             if (id != question.QuestionId)
             {

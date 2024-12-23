@@ -25,12 +25,14 @@
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="CountUpvotes" /> @Html.DisplayNameFor(model => model.CountUpvotes)
+                    <input class="form-check-input" asp-for="CountUpvotes" onclick="toggleCheckbox(this, 'CountDownvotes')" />
+                    Up Votes
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="CountDownvotes" /> @Html.DisplayNameFor(model => model.CountDownvotes)
+                    <input class="form-check-input" asp-for="CountDownvotes" onclick="toggleCheckbox(this, 'CountUpvotes')" />
+                    Down Votes
                 </label>
             </div>
             <div class="form-group">
@@ -47,3 +49,11 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    function toggleCheckbox(currentCheckbox, otherCheckboxId) {
+        const otherCheckbox = document.getElementById(otherCheckboxId);
+        if (currentCheckbox.checked) {
+            otherCheckbox.checked = false;
+        }
+    }
+</script>
